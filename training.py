@@ -1,6 +1,7 @@
 from logistic_sgd import LogisticRegression, load_data
 from mlp import HiddenLayer
 from convolutional_mlp import LeNetConvPoolLayer
+import numpy
 
 learning_rate=0.1
 n_epochs=200
