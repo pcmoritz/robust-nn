@@ -17,6 +17,7 @@ dataset='mnist.pkl.gz'
 nkerns=[20, 50]
 batch_size=500
 
+params_file='params.save'
 
 rng = numpy.random.RandomState(23455)
 
@@ -187,6 +188,9 @@ print('Optimization complete.')
 print('Best validation score of %f %% obtained at iteration %i,'\
       'with test performance %f %%' %
       (best_validation_loss * 100., best_iter + 1, test_score * 100.))
-print >> sys.stderr, ('The code for file ' +
-                      os.path.split(__file__)[1] +
-                      ' ran for %.2fm' % ((end_time - start_time) / 60.))
+print >> sys.stderr, ('The code ran for %.2fm' % ((end_time - start_time) / 60.))
+
+f = file(params_file, 'wb')
+
+for obj in [layer0, layer1, layer2, layer3]:
+    cPickle.dump(obj, f, protocol=cPickle.HIGHEST_PROTOCOL)

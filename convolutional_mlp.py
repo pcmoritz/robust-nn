@@ -93,6 +93,14 @@ class LeNetConvPoolLayer(object):
         # store parameters of this layer
         self.params = [self.W, self.b]
 
+    def __getstate__(self):
+        return (self.W.get_value(), self.b.get_value())
+
+    def __setstate__(self, state):
+        W, b = state
+        self.W.set_value(W)
+        self.b.set_value(b)
+
 
 
 
