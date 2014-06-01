@@ -32,7 +32,7 @@ batch_size=500
 
 params_file='params.save'
 
-rng = numpy.random.RandomState(23455)
+rng = numpy.random.RandomState(42)
 
 datasets = load_data(dataset)
 
@@ -208,4 +208,4 @@ def train_convnet():
     f = file(params_file, 'wb')
 
     for obj in [layer0, layer1, layer2, layer3]:
-        store_layer(f, layer)
+        store_layer(f, obj)
