@@ -9,7 +9,20 @@ import theano.tensor as T
 from logistic_sgd import LogisticRegression, load_data
 from mlp import HiddenLayer
 from convolutional_mlp import LeNetConvPoolLayer
+import convolutional_mlp
 import numpy
+
+def store_layer(f, layer):
+    W = layer.W.get_value()
+    b = layer.b.get_value()
+    cPickle.dump(W, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    cPickle.dump(b, f, protocol=cPickle.HIGHEST_PROTOCOL)
+
+def load_layer(f, layer):
+    W = cPickle.load(f)
+    b = cPickle.load(f)
+    layer.W.set_value(W)
+    layer.b.set_value(b)
 
 learning_rate=0.1
 n_epochs=200
@@ -195,4 +208,4 @@ def train_convnet():
     f = file(params_file, 'wb')
 
     for obj in [layer0, layer1, layer2, layer3]:
-        store_convlayer(f, layer)
+        store_layer(f, layer)
