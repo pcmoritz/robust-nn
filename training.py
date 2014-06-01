@@ -195,4 +195,4 @@ def train_convnet():
     f = file(params_file, 'wb')
 
     for obj in [layer0, layer1, layer2, layer3]:
-        cPickle.dump(obj, f, protocol=cPickle.HIGHEST_PROTOCOL)
+        store_convlayer(f, layer)

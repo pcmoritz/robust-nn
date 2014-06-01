@@ -93,13 +93,18 @@ class LeNetConvPoolLayer(object):
         # store parameters of this layer
         self.params = [self.W, self.b]
 
-    def __getstate__(self):
-        return (self.W.get_value(), self.b.get_value())
+def store_convlayer(f, layer):
+    W = layer.W.get_value()
+    b = layer.b.get_value()
+    cPickle.dump(W, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    cPickle.dump(b, f, protocol=cPickle.HIGHEST_PROTOCOL)
 
-    def __setstate__(self, state):
-        W, b = state
-        self.W.set_value(W)
-        self.b.set_value(b)
+def load_convlayer(f, layer):
+    W = cPickle.load(f)
+    b = cPickle.load(f)
+    layer.W.set_value(W)
+    layer.b.set_value(b)
+
 
 
 
