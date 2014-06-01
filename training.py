@@ -1,3 +1,11 @@
+import cPickle
+import gzip
+import os
+import sys
+import time
+
+import theano
+import theano.tensor as T
 from logistic_sgd import LogisticRegression, load_data
 from mlp import HiddenLayer
 from convolutional_mlp import LeNetConvPoolLayer
