@@ -15,5 +15,7 @@ layer3 = LogisticRegression(input=layer2.output, n_in=500, n_out=10)
 
 2.png:
 
+Best validation score of 1.020000 % obtained at iteration 17000,with test performance 1.070000 %
+
 Parameters as above, but with poolsize=(3,3) in layer0 and
 poolsize=(2,2) in layer1
