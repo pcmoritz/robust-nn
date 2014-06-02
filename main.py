@@ -1,9 +1,11 @@
-# Train the model
-execfile("training.py")
-
-# With the following command, the parameter file can be generated
+# With the following commandx, the parameter file can be generated
 # (this will be much faster if done on a GPU)
-#  train_convnet()
+# execfile("training.py")
+# train_convnet()
+
+execfile("training.py")
+batch_size=1
+execfile("model.py")
 
 f = file(params_file, 'rb')
 
@@ -15,9 +17,6 @@ gradient = T.grad(layer3.p_y_given_x[0,0], x)
 from scipy.optimize import minimize
 import numpy
 import pylab
-
-img = valid_set_x[2:3].eval()[0]
-img = valid_set_x[4:5].eval()[0]
 
 def draw_char(img):
     pylab.imshow(numpy.reshape(img, (28, 28)),
@@ -47,13 +46,18 @@ def calc_min(init, C):
 
 def sol_path(l=3,k=1):
     val = numpy.random.randn(784)
-    i = 0
-    for C in [1e-6, 1e-5, 1e-4, 1e-3, 1e-2]:
+    i = 1
+    for C in [1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2]:
         res = calc_min(val, C)
         val = res.x
-        pylab.subplot(l,5,5*(k-1)+i)
+        pylab.subplot(l,6,6*(k-1)+i)
         i = i + 1
         draw_char(val)
 
+pylab.axis('off')
 
+for i in range(2, 7):
+    global img
+    img = valid_set_x[i:(i+1)].eval()[0]
+    sol_path(5,i-1)
 
