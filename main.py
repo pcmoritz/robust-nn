@@ -3,6 +3,9 @@
 # execfile("training.py")
 # train_convnet()
 
+# theano.config.exception_verbosity='high'
+# layer1.output.eval({x: numpy.random.randn(784, 500)})
+
 execfile("training.py")
 batch_size=1
 execfile("model.py")

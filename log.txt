@@ -25,3 +25,11 @@ poolsize=(2,2) in layer1
 Best validation score of 1.480000 % obtained at iteration 14000,with test performance 1.430000 %
 
 Parameters as in 2.png, using average pooling instead of max pooling
+
+4.png:
+
+Best validation score of 1.370000 % obtained at iteration 19500,with test performance 1.470000 %
+
+Parameters as in 1.png, but with average pooling
+
+
