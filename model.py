@@ -8,14 +8,14 @@ layer0_input = x.reshape((batch_size, 1, 28, 28))
 # 4D output tensor is thus of shape (batch_size,nkerns[0],12,12)
 layer0 = LeNetConvPoolLayer(rng, input=layer0_input,
         image_shape=(batch_size, 1, 28, 28),
-        filter_shape=(nkerns[0], 1, 5, 5), poolsize=(3, 3))
+        filter_shape=(nkerns[0], 1, 5, 5), poolsize=(2, 2))
 
 # Construct the second convolutional pooling layer
 # filtering reduces the image size to (12-5+1,12-5+1)=(8,8)
 # maxpooling reduces this further to (8/2,8/2) = (4,4)
 # 4D output tensor is thus of shape (nkerns[0],nkerns[1],4,4)
 layer1 = LeNetConvPoolLayer(rng, input=layer0.output,
-        image_shape=(batch_size, nkerns[0], 8, 8),
+        image_shape=(batch_size, nkerns[0], 12, 12),
         filter_shape=(nkerns[1], nkerns[0], 5, 5), poolsize=(2, 2))
 
 # the HiddenLayer being fully-connected, it operates on 2D matrices of
@@ -24,7 +24,7 @@ layer1 = LeNetConvPoolLayer(rng, input=layer0.output,
 layer2_input = layer1.output.flatten(2)
 
 # construct a fully-connected sigmoidal layer
-layer2 = HiddenLayer(rng, input=layer2_input, n_in=nkerns[1] * 2 * 2,
+layer2 = HiddenLayer(rng, input=layer2_input, n_in=nkerns[1] * 4 * 4,
                      n_out=500, activation=T.tanh)
 
 # classify the values of the fully-connected sigmoidal layer
