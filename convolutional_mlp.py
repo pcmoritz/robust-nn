@@ -27,6 +27,8 @@ import theano
 import theano.tensor as T
 from theano.tensor.signal import downsample
 from theano.tensor.nnet import conv
+import theano.sandbox.neighbours
+import pylearn2.models.mlp
 import cPickle
 
 
@@ -82,8 +84,13 @@ class LeNetConvPoolLayer(object):
                 filter_shape=filter_shape, image_shape=image_shape)
 
         # downsample each feature map individually, using maxpooling
-        pooled_out = downsample.max_pool_2d(input=conv_out,
-                                            ds=poolsize, ignore_border=True)
+        # pooled_out = downsample.max_pool_2d(input=conv_out,
+        #                                     ds=poolsize, ignore_border=True)
+        # temp = theano.sandbox.neighbours.images2neibs(conv_out, poolsize)
+        # pooled_out = temp.mean(axis=-1)
+        # print image_shape
+        # print filter_shape
+        pooled_out  = pylearn2.models.mlp.mean_pool(bc01=conv_out, pool_shape=poolsize, pool_stride=poolsize, image_shape=(image_shape[2] - filter_shape[2] + 1, image_shape[3] - filter_shape[3] + 1))
 
         # add the bias term. Since the bias is a vector (1D array), we first
         # reshape it to a tensor of shape (1,n_filters,1,1). Each bias will
