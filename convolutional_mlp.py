@@ -91,7 +91,7 @@ class LeNetConvPoolLayer(object):
         # pooled_out = temp.mean(axis=-1)
         ords = argsort(temp)
         num = image_shape[0] * filter_shape[0] * (image_shape[2] - filter_shape[2] + 1)/poolsize[0] * (image_shape[3] - filter_shape[3] + 1)/poolsize[1]
-        largest = temp[numpy.arange(0, num), ords[:,0]]
+        largest = temp[numpy.arange(0, num), ords[:,3]]
         pooled_out = largest.reshape((image_shape[0], filter_shape[0], (image_shape[2] - filter_shape[2] + 1)/poolsize[0], (image_shape[3] - filter_shape[3] + 1)/poolsize[1]))
         # print image_shape
         # print filter_shape
