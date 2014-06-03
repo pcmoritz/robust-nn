@@ -29,6 +29,7 @@ from theano.tensor.signal import downsample
 from theano.tensor.nnet import conv
 import theano.sandbox.neighbours
 import pylearn2.models.mlp
+from theano.tensor.sort import argsort
 import cPickle
 
 
@@ -87,8 +88,11 @@ class LeNetConvPoolLayer(object):
         # pooled_out = downsample.max_pool_2d(input=conv_out,
         #                                     ds=poolsize, ignore_border=True)
         temp = theano.sandbox.neighbours.images2neibs(conv_out, poolsize)
-        pooled_out = temp.mean(axis=-1)
-        pooled_out = pooled_out.reshape((image_shape[0], filter_shape[0], (image_shape[2] - filter_shape[2] + 1)/poolsize[0], (image_shape[3] - filter_shape[3] + 1)/poolsize[1]))
+        # pooled_out = temp.mean(axis=-1)
+        ords = argsort(temp)
+        num = image_shape[0] * filter_shape[0] * (image_shape[2] - filter_shape[2] + 1)/poolsize[0] * (image_shape[3] - filter_shape[3] + 1)/poolsize[1]
+        largest = temp[numpy.arange(0, num), ords[:,0]]
+        pooled_out = largest.reshape((image_shape[0], filter_shape[0], (image_shape[2] - filter_shape[2] + 1)/poolsize[0], (image_shape[3] - filter_shape[3] + 1)/poolsize[1]))
         # print image_shape
         # print filter_shape
         # pooled_out  = pylearn2.models.mlp.mean_pool(bc01=conv_out, pool_shape=poolsize, pool_stride=poolsize, image_shape=(image_shape[2] - filter_shape[2] + 1, image_shape[3] - filter_shape[3] + 1))
