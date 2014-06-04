@@ -33,3 +33,8 @@ Best validation score of 1.370000 % obtained at iteration 19500,with test perfor
 Parameters as in 1.png, but with average pooling
 
 
+6.png:
+
+Best validation score of 1.290000 % obtained at iteration 6900,with test performance 1.280000 %
+
+
