@@ -25,7 +25,7 @@ def load_layer(f, layer):
     layer.b.set_value(b)
 
 learning_rate=0.1
-n_epochs=200
+n_epochs=100
 dataset='mnist.pkl.gz'
 nkerns=[20, 50]
 batch_size=500
