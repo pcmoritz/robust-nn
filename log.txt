@@ -37,4 +37,10 @@ Parameters as in 1.png, but with average pooling
 
 Best validation score of 1.290000 % obtained at iteration 6900,with test performance 1.280000 %
 
+7.png:
+
+Larger median pooling
+
+Best validation score of 1.940000 % obtained at iteration 9800,with test performance 2.050000 %
+
 

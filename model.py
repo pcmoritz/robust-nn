@@ -4,19 +4,19 @@ layer0_input = x.reshape((batch_size, 1, 28, 28))
 
 # Construct the first convolutional pooling layer:
 # filtering reduces the image size to (28-5+1,28-5+1)=(24,24)
-# maxpooling reduces this further to (24/2,24/2) = (12,12), now (8,8)
+# maxpooling reduces this further to (24/2,24/2) = (12,12), now (6,6)
 # 4D output tensor is thus of shape (batch_size,nkerns[0],12,12)
 layer0 = LeNetConvPoolLayer(rng, input=layer0_input,
         image_shape=(batch_size, 1, 28, 28),
-        filter_shape=(nkerns[0], 1, 5, 5), poolsize=(3, 3), mid=4)
+        filter_shape=(nkerns[0], 1, 5, 5), poolsize=(4, 4), mid=8)
 
 # Construct the second convolutional pooling layer
 # filtering reduces the image size to (12-5+1,12-5+1)=(8,8), now (6,6)
 # maxpooling reduces this further to (8/2,8/2) = (4,4)
 # 4D output tensor is thus of shape (nkerns[0],nkerns[1],4,4)
 layer1 = LeNetConvPoolLayer(rng, input=layer0.output,
-        image_shape=(batch_size, nkerns[0], 8, 8),
-        filter_shape=(nkerns[1], nkerns[0], 3, 3), poolsize=(3, 3), mid=4)
+        image_shape=(batch_size, nkerns[0], 6, 6),
+        filter_shape=(nkerns[1], nkerns[0], 3, 3), poolsize=(2, 2), mid=3)
 
 # the HiddenLayer being fully-connected, it operates on 2D matrices of
 # shape (batch_size,num_pixels) (i.e matrix of rasterized images).
